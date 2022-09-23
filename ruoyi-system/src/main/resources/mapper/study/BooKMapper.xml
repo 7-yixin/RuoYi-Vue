@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.mapper.BookMapper">
+    <!-- 查询   参数，返回结果的类型 -->
+    <select id="list" resultType="com.ruoyi.study.domain.Book">
+       select id,name,author,status,book_num as  bookNum,add_time as addTime,update_time as updateTime from book
+    </select>
+    <insert id="addBook" parameterType = "com.ruoyi.study.domain.Book">
+    	insert into book(name, author, status, book_num, add_time, update_time)
+		value(#{name},#{author},#{status},#{bookNum},#{addTime},#{updateTime});
+    
+    </insert>
+    
+    <delete id="delete" parameterType = "Integer">
+    	delete from book where id = #{bid}
+    </delete>
+    
+    <update id="update" parameterType="com.ruoyi.study.domain.Book">
+		update book set
+		<if test="name!=null and name!=''"> name=#{name},</if>
+		<if test="author!=null and author!=''">author=#{author},</if>
+		<if test="status!=null and status!=''">status=#{status},</if>
+		<if test="bookNum!=null and bookNum!=''">book_num=#{bookNum},</if>
+		update_time=sysdate() where id=#{id}
+	</update>
+</mapper>
